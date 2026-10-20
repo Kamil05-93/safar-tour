@@ -494,6 +494,68 @@
       // Когда будет известна документация, параметры поиска можно будет передавать сюда.
       window.location.href = PARTNER_URL;
     });
-  </script>
+ <script>
+  // Партнёрскую ссылку добавим сюда, когда она у вас появится.
+  const PARTNER_URL = "";
+
+  const departInput = document.getElementById("depart");
+  const returnInput = document.getElementById("return");
+  const returnField = document.getElementById("returnField");
+  const status = document.getElementById("status");
+
+  const now = new Date();
+  const today = new Date(
+    now.getTime() - now.getTimezoneOffset() * 60000
+  ).toISOString().slice(0, 10);
+
+  departInput.min = today;
+  returnInput.min = today;
+
+  document.querySelectorAll('input[name="trip"]').forEach(radio => {
+    radio.addEventListener("change", () => {
+      const oneWay =
+        document.querySelector('input[name="trip"]:checked').value === "oneway";
+
+      returnField.hidden = oneWay;
+      returnInput.required = !oneWay;
+    });
+  });
+
+  departInput.addEventListener("change", () => {
+    returnInput.min = departInput.value || today;
+  });
+
+  document.getElementById("searchForm").addEventListener("submit", event => {
+    event.preventDefault();
+
+    const from = document.getElementById("from").value.trim();
+    const to = document.getElementById("to").value.trim();
+
+    if (from.toLowerCase() === to.toLowerCase()) {
+      status.textContent = "Укажите разные города отправления и прибытия.";
+      return;
+    }
+
+    if (
+      returnInput.required &&
+      returnInput.value &&
+      departInput.value &&
+      returnInput.value < departInput.value
+    ) {
+      status.textContent =
+        "Дата возвращения не может быть раньше даты вылета.";
+      return;
+    }
+
+    if (!PARTNER_URL) {
+      status.textContent =
+        "Форма готова, но реальные билеты пока не подключены. " +
+        "Партнёрскую ссылку можно добавить позже.";
+      return;
+    }
+
+    window.location.href = PARTNER_URL;
+  });
+</script>
 </body>
 </html>
