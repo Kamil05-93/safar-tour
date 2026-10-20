@@ -420,7 +420,9 @@
   >Перейти к поиску билетов</a>.
   erid: 2Vtzqwv6szV
 </p>
-
+ </form>
+    </div>
+  </section>
   <main class="container">
     <div class="notice">
       Сайт подготовлен как основа проекта. Поиск и покупка билетов пока не подключены.
@@ -525,26 +527,21 @@
   const returnField = document.getElementById("returnField");
   const status = document.getElementById("status");
 
-  const now = new Date();
-  const today = new Date(
-    now.getTime() - now.getTimezoneOffset() * 60000
-  ).toISOString().slice(0, 10);
+  const today = new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+    .toISOString()
+    .slice(0, 10);
 
   departInput.min = today;
   returnInput.min = today;
 
   document.querySelectorAll('input[name="trip"]').forEach(radio => {
     radio.addEventListener("change", () => {
-      const oneWay =
+      const isOneWay =
         document.querySelector('input[name="trip"]:checked').value === "oneway";
 
-      returnField.hidden = oneWay;
-      returnInput.required = !oneWay;
+      returnField.hidden = isOneWay;
+      returnInput.required = !isOneWay;
     });
-  });
-
-  departInput.addEventListener("change", () => {
-    returnInput.min = departInput.value || today;
   });
 
   document.getElementById("searchForm").addEventListener("submit", event => {
@@ -561,7 +558,6 @@
     if (
       returnInput.required &&
       returnInput.value &&
-      departInput.value &&
       returnInput.value < departInput.value
     ) {
       status.textContent =
