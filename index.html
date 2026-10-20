@@ -18,6 +18,12 @@
   <title>САФАР ТУР — путешествия начинаются здесь</title>
     
   <style>
+.ad-disclosure {
+  margin: 12px 0 0;
+  color: #69778a;
+  font-size: 12px;
+  line-height: 1.5;
+}
     :root {
       --blue: #164d91;
       --blue-dark: #103768;
@@ -395,6 +401,10 @@
         </div>
 
         <div id="status" aria-live="polite"></div>
+ <p class="ad-disclosure">
+  Реклама. Рекламодатель:Реклама. Go Travel Un Limited. ИНН 9909520797
+  erid: 2Vtzqwv6szV
+</p>
       </form>
     </div>
   </section>
@@ -494,9 +504,9 @@
       // Когда будет известна документация, параметры поиска можно будет передавать сюда.
       window.location.href = PARTNER_URL;
     });
- <script>
-  // Партнёрскую ссылку добавим сюда, когда она у вас появится.
-  const PARTNER_URL = "https://aviasales.tpm.li/NxE1XpsA?erid=2Vtzqwv6szV";
+<script>
+  const PARTNER_URL =
+    "https://aviasales.tpm.li/NxE1XpsA?erid=2Vtzqwv6szV";
 
   const departInput = document.getElementById("depart");
   const returnInput = document.getElementById("return");
@@ -544,13 +554,6 @@
     ) {
       status.textContent =
         "Дата возвращения не может быть раньше даты вылета.";
-      return;
-    }
-
-    if (!PARTNER_URL) {
-      status.textContent =
-        "Форма готова, но реальные билеты пока не подключены. " +
-        "Партнёрскую ссылку можно добавить позже.";
       return;
     }
 
